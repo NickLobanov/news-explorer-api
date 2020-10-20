@@ -38,3 +38,14 @@ module.exports.postAtricle = (req, res, next) => {
     })
     .catch(next);
 };
+
+module.exports.deleteArticle = (req, res, next) => {
+  Article.findByIdAndRemove(req.params.articleId)
+    .then((article) => {
+      if (!article) {
+        res.status(404).send('нет карточки с таким ID');
+      }
+      res.status(200).send('Карточка удалена');
+    })
+    .catch(next);
+};
