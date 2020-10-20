@@ -6,6 +6,8 @@ const NotFoundError = require('../middlewares/errors/not-found-err');
 const UnauthorizedError = require('../middlewares/errors/unauthorized-err');
 const Conflict = require('../middlewares/errors/conflict');
 
+const { NODE_ENV, JWT_SECRET } = process.env;
+
 module.exports.getUser = (req, res, next) => {
   User.findById(req.user._id)
     .then((userData) => {
