@@ -1,12 +1,16 @@
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const User = require('../models/user');
+const BadRequestError = require('../middlewares/errors/bad-req-err');
+const NotFoundError = require('../middlewares/errors/not-found-err');
+const UnauthorizedError = require('../middlewares/errors/unauthorized-err');
+const Conflict = require('../middlewares/errors/conflict');
 
 module.exports.getUser = (req, res, next) => {
   User.findById(req.user._id)
     .then((userData) => {
       if (!userData) {
-        res.status(404).send('Нет пользователя и таким ID');
+        throw new NotFoundError('Нет пользователя с таким ID');
       }
       res.status(200).send(userData);
     })
