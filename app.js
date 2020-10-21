@@ -1,6 +1,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const mogoose = require('mongoose');
+const { celebrate, Joi, errors } = require('celebrate');
 const { createNewUser, login } = require('./controllers/user');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
 const auth = require('./middlewares/auth');
@@ -22,8 +23,19 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use(requestLogger);
 
-app.post('/signup', createNewUser);
-app.post('/signin', login);
+app.post('/signup', celebrate({
+  body: Joi.object().keys({
+    name: Joi.string().required().max(30).min(2),
+    email: Joi.string().required().email(),
+    password: Joi.string().required().min(8),
+  }),
+}), createNewUser);
+app.post('/signin', celebrate({
+  body: Joi.object().keys({
+    email: Joi.string().required().email(),
+    password: Joi.string().required().min(8),
+  }),
+}), login);
 
 app.use(auth);
 
