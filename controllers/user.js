@@ -20,16 +20,11 @@ module.exports.getUser = (req, res, next) => {
 };
 
 module.exports.createNewUser = (req, res, next) => {
-  const {
-    email,
-    name,
-  } = req.body;
-  bcrypt.hash(req.body.password, 15)
-    .then((hash) => User.create({
-      email,
-      name,
-      password: hash,
-    }))
+  User.create({
+    name: req.body.name,
+    email: req.body.email,
+    password: req.body.password,
+  })
     .catch((err) => {
       if (err.code === 11000) {
         throw new Conflict('Пользователь с таким email уже создан');

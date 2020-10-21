@@ -1,4 +1,5 @@
 const express = require('express');
+require('dotenv').config();
 const mogoose = require('mongoose');
 const { createNewUser, login } = require('./controllers/user');
 const auth = require('./middlewares/auth');
@@ -23,15 +24,15 @@ app.use(auth);
 app.use('/', userRouter);
 app.use('/', articleRouter);
 
-app.use((err, req, res, next) => {
-  const { statusCode = 500, message } = err;
-  res
-    .status(statusCode)
-    .send({
-      message: statusCode === 500
-        ? 'На сервере произошла ошибка'
-        : message,
-    });
-});
+// app.use((err, req, res, next) => {
+//   const { statusCode = 500, message } = err;
+//   res
+//     .status(statusCode)
+//     .send({
+//       message: statusCode === 500
+//         ? 'На сервере произошла ошибка'
+//         : message,
+//     });
+// });
 
 app.listen(PORT);
