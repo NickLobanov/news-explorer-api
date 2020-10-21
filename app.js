@@ -1,5 +1,5 @@
 const express = require('express');
-require('dotenv').config();
+const bodyParser = require('body-parser');
 const mogoose = require('mongoose');
 const { createNewUser, login } = require('./controllers/user');
 const auth = require('./middlewares/auth');
@@ -15,6 +15,9 @@ mogoose.connect('mongodb://localhost:27017/newsdb', {
   useCreateIndex: true,
   useFindAndModify: false,
 });
+
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 
 app.post('/signup', createNewUser);
 app.post('/signin', login);

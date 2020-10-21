@@ -32,6 +32,7 @@ module.exports.postAtricle = (req, res, next) => {
     source,
     link,
     image,
+    owner: req.user._id,
   })
     .then((newArticle) => {
       if (!newArticle) {
