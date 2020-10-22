@@ -49,12 +49,11 @@ module.exports.deleteArticle = (req, res, next) => {
       if (!article) {
         throw new NotFoundError('Нет карточки с таким ID');
       }
-      if (article.owner === req.user._id) {
-        Article.remove(article)
-          .then(() => res.status(200).send('Карточка удалена'));
-      } else {
+      if (String(article.owner) !== req.user._id) {
         throw new Forbidden('Недостаточно прав');
       }
+      Article.remove(article)
+        .then(() => res.status(200).send('Карточка удалена'));
     })
     .catch(next);
 };
