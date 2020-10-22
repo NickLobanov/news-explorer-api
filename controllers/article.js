@@ -44,15 +44,17 @@ module.exports.postAtricle = (req, res, next) => {
 };
 
 module.exports.deleteArticle = (req, res, next) => {
-  Article.findByIdAndRemove(req.params.articleId)
+  Article.findById(req.params.articleId)
     .then((article) => {
       if (!article) {
         throw new NotFoundError('Нет карточки с таким ID');
       }
-      if (article.owner !== req.user._id) {
+      if (article.owner === req.user._id) {
+        Article.remove(article)
+          .then(() => res.status(200).send('Карточка удалена'));
+      } else {
         throw new Forbidden('Недостаточно прав');
       }
-      res.status(200).send('Карточка удалена');
     })
     .catch(next);
 };
