@@ -1,0 +1,40 @@
+{
+  "name": "news-explorer",
+  "version": "1.0.0",
+  "description": "API news-explorer",
+  "main": "index.js",
+  "scripts": {
+    "dev": "nodemon app.js",
+    "start": "node app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/NickLobanov/news-explorer-api.git"
+  },
+  "author": "Nick Lobanov",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/NickLobanov/news-explorer-api/issues"
+  },
+  "homepage": "https://github.com/NickLobanov/news-explorer-api#readme",
+  "devDependencies": {
+    "eslint": "^7.11.0",
+    "eslint-config-airbnb-base": "^14.2.0",
+    "eslint-plugin-import": "^2.22.1",
+    "nodemon": "^2.0.5"
+  },
+  "dependencies": {
+    "bcrypt": "^5.0.0",
+    "bcryptjs": "^2.4.3",
+    "body-parser": "^1.19.0",
+    "celebrate": "^13.0.3",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "express-rate-limit": "^5.1.3",
+    "express-winston": "^4.0.5",
+    "jsonwebtoken": "^8.5.1",
+    "mongoose": "^5.10.9",
+    "validator": "^13.1.17",
+    "winston": "^3.3.3"
+  }
+}
