@@ -1,4 +1,5 @@
 const express = require('express');
+const cors = require('cors');
 const rateLimit = require('express-rate-limit');
 const bodyParser = require('body-parser');
 const mogoose = require('mongoose');
@@ -24,6 +25,7 @@ mogoose.connect('mongodb://localhost:27017/newsdb', {
   useFindAndModify: false,
 });
 
+app.use(cors());
 app.use(limiter);
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
